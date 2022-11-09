@@ -173,7 +173,7 @@ class _ClientInterceptor(
     def _intercept_client_call(self, method_kind, client_call_details):
         tracer = self._pin.tracer
 
-        span = tracer.trace(
+        span = tracer.start_span(
             "grpc",
             span_type=SpanTypes.GRPC,
             service=trace_utils.ext_service(self._pin, config.grpc),
