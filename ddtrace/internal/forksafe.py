@@ -57,7 +57,9 @@ def unregister(after_in_child):
 
 
 if hasattr(os, "register_at_fork"):
-    os.register_at_fork(after_in_child=ddtrace_after_in_child)
+    # Disable fork hooks altogether to prevent yielding back to the gevent hub.
+    # os.register_at_fork(after_in_child=ddtrace_after_in_child)
+    pass
 elif hasattr(os, "fork"):
     # DEV: This "should" be the correct way of implementing this, but it doesn't
     # work if hooks create new threads.
